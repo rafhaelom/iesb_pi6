@@ -1,2 +1,9 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Logs files.
+testes.log
 exemplo.log
-/app/dados/*
+
+# Folders.
+/app/dados/
