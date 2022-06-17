@@ -1,3 +1,3 @@
-from app.tratamento_dados.tratamento import TratamentoArquivo
+#from app.tratamento_dados.tratamento import TratamentoArquivo
 
-tratamento = TratamentoArquivo()
+#tratamento = TratamentoArquivo()

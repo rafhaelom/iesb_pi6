@@ -5,6 +5,7 @@ import pandas as pd
 
 from app.logs import logger
 from app.tratamento_dados import tratamento
+from app.tratamento_dados.tratamento import TratamentoArquivo
 
 class ExtracaoDados:
     def __init__(self) -> None:
@@ -53,5 +54,8 @@ class ExtracaoDados:
         self.extraiAnoMes()
         logger.info('Leitura do arquivo completo.')
         self.df2 = self.lerArquivo(header=3)     # Leitura do arquivo completo.
+
+        # Inicia tratamento do arquivo.        
         logger.debug('Tratamento do arquivo iniciado.')
-        tratamento.main(self.df2, self.ano, self.mes)
+        tratamento = TratamentoArquivo(self.df2, self.ano, self.mes)
+        tratamento.main()
