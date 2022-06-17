@@ -2,8 +2,7 @@
 __pycache__/
 
 # Logs files.
-testes.log
-exemplo.log
+*.log
 
 # Folders.
 /app/dados/
