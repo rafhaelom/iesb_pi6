@@ -11,3 +11,6 @@ __pycache__/
 *.csv
 teste.py
 testes_uni,py
+
+# env.
+.env
