@@ -10,36 +10,6 @@ class TratamentoArquivo:
         self.mes_arq = mes  # mes do arquivo.
         self.path_base = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/app/dados/base_data/'
 
-    def criaNomeColuna(self):
-        """Função para criar padrão no nome das colunas de serviço/classificação.
-        
-        Ex: Nome coluna Original = '105001 105 SERVICO DE ATENCAO EM NEUROLOGIA / NEUROCIRURGIA / 001 NEUROCIRURGIA DO TRAUMA E ANOMALIAS DO DE'
-            Nome coluna Nova = 'V_105001_105'
-        """
-        logger.info('Criando padronização no nome das colunas.')
-        colunas_origem = list(self.df.columns)
-        nomes_coluna = []
-        print(colunas_origem)
-        if len(colunas_origem) == 109:
-            #print(len(colunas_origem))
-            for col in colunas_origem:
-                if len(col) > 12 and col != 'CodMunicipio':
-                    #print(f"V_{col[:6]}_{col[7:10]}")
-                    nomes_coluna.append(f"V_{col[:6]}_{col[7:10]}")
-                else:
-                    nomes_coluna.append(col)
-                    #print("A coluna {0}\n não é a coluna de serviço\n".format(col))
-
-            
-            #return self.colunas_novas
-        else:
-            print('Não possuem as colunas corretas.')
-            pass
-        colunas_novas = ["Ano", "Mes", "CodMunicipio"] + nomes_coluna
-        print(type(colunas_novas))
-        self.df1 = self.df.copy()
-        self.df1.columns = colunas_novas
-
     def criarColunas(self):
         """Função para criar colunas de ano e mes em uma posição específica do DataFrame."""
         logger.info('Criando coluna de Ano e Mes.')
@@ -50,7 +20,6 @@ class TratamentoArquivo:
         """Função para extrair código do município."""
         logger.info('Extraindo CodMunicipio.')
         self.df.insert(2, "CodMunicipio", self.df.Município.apply(lambda x: x[:7]), allow_duplicates=False)
-        #self.df["CodMunicipio"] = self.df["Município"].apply(lambda x: x[:7])
 
     def removerColunas(self):
         """Função para remover coluna não utilizada."""
@@ -74,34 +43,6 @@ class TratamentoArquivo:
         self.df_remove_line = self.df.copy() 
         self.df_remove_line = self.df_remove_line[:-6]
 
-    def renomearColunas(self):
-        """Função para renomear as colunas de acordo com o padrão definido no projeto, conforme o que se extrai da funcao 'criaNomeColuna'.
-        
-        Ex: Nome coluna Original = '105001 105 SERVICO DE ATENCAO EM NEUROLOGIA / NEUROCIRURGIA / 001 NEUROCIRURGIA DO TRAUMA E ANOMALIAS DO DE'
-            Nome coluna Nova = 'V_105001_105'
-        """
-        #print(colunas_novas)
-        logger.info('Renomeando colunas.')
-        #colunas_antigas = list(self.df.columns)
-        #print(colunas_antigas)
-        print()
-        #print(self.colunas_novas)
-        #colunas_nomes = {}
-        #for _col_antiga, _col_nova in 
-        #colunas_nomes = dict(zip(colunas_antigas, self.colunas_novas))
-        #print(colunas_nomes)
-            #print("Coluna antiga: ", _col_antiga)
-            #print("Coluna nova: ", _col_nova)
-        #_colunas_nomes[_col_antiga] = (_col_nova)
-        #pass
-
-        #print(_colunas_nomes)
-        self.df1 = self.df_remove_line.copy()
-        self.df1.columns = self.colunas_novas
-        #self.df1.rename(columns=colunas_nomes, inplace=True)
-        #pass
-        print('fim renomear')
-
     def trataNulos(self):
         """Função para trata valores nulos.
 
@@ -122,17 +63,11 @@ class TratamentoArquivo:
         logger.info("Tratando Nulos.")
         colunas_df = list(self.df_remove_line.columns)
         #print(colunas_df)
-        if len(colunas_df) == 109:
-            for col in colunas_df:
-                if len(col) == 12 and col != 'CodMunicipio':
-                    self.df_remove_line[col].replace(to_replace={'-': None}, inplace=True)
-                else:
-                    pass
-            
-        else:
-            pass
-
-        return self.df_remove_line
+        for col in colunas_df:
+            if len(col) >= 12 and col != 'CodMunicipio':
+                self.df_remove_line[col].replace(to_replace={'-': None}, inplace=True)
+            else:
+                pass
 
     def salvarArquivo(self):
         """Função para salvar o arquivo final após o tratamento."""
@@ -140,17 +75,11 @@ class TratamentoArquivo:
         self.df_remove_line.to_csv(self.path_base+'SIH_SUS_'+str(self.ano_arq)+'_'+str(self.mes_arq)+'.csv', sep=';', index=False, encoding='latin1')
 
     def main(self):
-        #self.criaNomeColuna()
-        #self.extraiCodMunicipio()
         self.criarColunas()
         self.extraiCodMunicipio()
         self.removerColunas()
-        self.removerLinhas()
-        #self.criaNomeColuna()
-        #self.renomearColunas()
-        #self.df2 = 
-        self.df_remove_line = self.trataNulos()
+        self.removerLinhas() 
+        self.trataNulos()
         self.salvarArquivo()
-        #print(len(self.df.columns))
         logger.info(f'Fim do tratamento do arquivo.')
         return self.df_remove_line

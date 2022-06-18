@@ -44,22 +44,18 @@ def criaNomeColuna(df):
     return df1
 
 if __name__ == '__main__':
-    arquivo = listarDiretorio(path_raw)
-    for i in range(0,47):
-        #arquivo[i]
-        logger.debug('Loop pipeline para os arquivos iniciado!!!')
-        #for arquivo in arquivos:
+    arquivos = listarDiretorio(path_raw)
+    #for i in range(0,47):
+    #arquivo[i]
+    logger.debug('Loop pipeline para os arquivos iniciado!!!')
+    for arquivo in arquivos:
         logger.debug('Extração de dados do arquivo iniciado!!!')
-        extracao = ExtracaoDados(arquivo[i])
+        extracao = ExtracaoDados(arquivo)
         df1, ano, mes = extracao.main()
-        #print(df1.columns)
         df2 = criaNomeColuna(df1)
-        #print(df2)
-        #print(ano)
-        #print(mes)
-        #print()
-        logger.debug(f'Tratamento do arquivo {arquivo[i]} iniciado!!!')
+        logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
         tratamento = TratamentoArquivo(df2, ano, mes)
         df3 = tratamento.main()
-    #print(df3)
+        print(arquivo)
+        #print(df3)
     logger.debug(f'Todos os arquivos foram extraidos!!!')
