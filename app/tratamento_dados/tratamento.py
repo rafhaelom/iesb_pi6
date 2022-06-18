@@ -13,13 +13,13 @@ class TratamentoArquivo:
     def criarColunas(self):
         """Função para criar colunas de ano e mes em uma posição específica do DataFrame."""
         logger.info('Criando coluna de Ano e Mes.')
-        self.df.insert(0, "Ano", self.ano_arq, allow_duplicates=False)
-        self.df.insert(1, "Mes", self.mes_arq, allow_duplicates=False)
+        self.df.insert(0, "ANO", self.ano_arq, allow_duplicates=False)
+        self.df.insert(1, "MES", self.mes_arq, allow_duplicates=False)
 
     def extraiCodMunicipio(self):
         """Função para extrair código do município."""
         logger.info('Extraindo CodMunicipio.')
-        self.df.insert(2, "CodMunicipio", self.df.Município.apply(lambda x: x[:7]), allow_duplicates=False)
+        self.df.insert(2, "CODMUNICIPIO", self.df.Município.apply(lambda x: x[:7]), allow_duplicates=False)
 
     def removerColunas(self):
         """Função para remover coluna não utilizada."""
@@ -64,7 +64,7 @@ class TratamentoArquivo:
         colunas_df = list(self.df_remove_line.columns)
         #print(colunas_df)
         for col in colunas_df:
-            if len(col) >= 12 and col != 'CodMunicipio':
+            if len(col) >= 12 and col != 'CODMUNICIPIO':
                 self.df_remove_line[col].replace(to_replace={'-': None}, inplace=True)
             else:
                 pass

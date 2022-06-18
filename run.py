@@ -1,6 +1,7 @@
 import os
 import sys
-from sqlalchemy import create_engine
+
+import psycopg2
 
 from app.logs import logger
 from app.extracao_dados.extracao import ExtracaoDados
@@ -41,25 +42,48 @@ def criaNomeColuna(df):
 
 if __name__ == '__main__':
     arquivos = listarDiretorio(path_raw)
+    arquivo = arquivos[-1]
     logger.debug('Loop pipeline para os arquivos iniciado!!!')
     #for arquivo in arquivos:
     logger.debug('Extração de dados do arquivo iniciado!!!')
-    extracao = ExtracaoDados(arquivos[0])
+    extracao = ExtracaoDados(arquivo)
     df1, ano, mes = extracao.main()
     df2 = criaNomeColuna(df1)
-    logger.debug(f'Tratamento do arquivo {arquivos[0]} iniciado!!!')
+    logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
     tratamento = TratamentoArquivo(df2, ano, mes)
     df3 = tratamento.main()
-    print(arquivos[0])
+    #print(arquivo)
     logger.debug(f'Todos os arquivos foram extraidos!!!')
+    #print(arquivos)
+    print()
+    print(arquivo)
+    print(ano, mes)
+    print()
+    
+    # Connect to your postgres DB
+    conn = psycopg2.connect(host="localhost", port="5432", dbname="saude_sus", user="postgres", password="")
+    #conn = psycopg2.connect(host="", port="5432", dbname="sus_saude", user="", password="")
 
-    # create sqlalchemy engine
-    engine = create_engine('postgresql+psycopg2://{user}:{pw}@{servidor}/{db}'
-                            .format(user="postgres",
-                                    pw="",
-                                    servidor="localhost",
-                                    db="saude_sus"))
+    # Open a cursor to perform database operations
+    cur = conn.cursor()
 
-    # Insert whole DataFrame into MySQL
-    df3.to_sql('tb_teste_sus_sih_qt', schema="sih-sus", con = engine, if_exists = 'append', chunksize = 1000)
-    engine.commit()
+    # creating column list for insertion
+    colunas = df3.columns.to_list()
+    cols = ",".join([str(i) for i in colunas])
+    print(cols)
+
+    # Insert DataFrame recrds one by one.
+    for i,row in df3.iterrows():
+        print(row)
+        sql = str('INSERT INTO sih_sus.tb_sus_sih_qt (' + 'id_sih_qtd,' +cols + ') VALUES (' + 'default,' +'%s,'*(len(row)-1) + '%s)')
+        #sql = f'INSERT INTO `"sih-sus".tb_teste_sus_sih_qt` (`" +{cols} + "`) VALUES ({i}, {*(len(row)-1) i})'
+        cur.execute(sql, tuple(row))
+        print(sql)
+        exit()
+
+
+    # the connection is not autocommitted by default, so we must commit to save our changes
+    conn.commit()
+    # Fecha conexão com o banco.
+    conn.close()
+    #print(sql)
