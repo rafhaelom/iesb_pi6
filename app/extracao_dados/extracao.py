@@ -4,7 +4,6 @@ import sys
 import pandas as pd
 
 from app.logs import logger
-from app.tratamento_dados import tratamento
 from app.tratamento_dados.tratamento import TratamentoArquivo
 
 class ExtracaoDados:
@@ -51,11 +50,8 @@ class ExtracaoDados:
         self.arquivo = self.listarDiretorio()[0]
         logger.info('Leitura das primeiras linhas para extrair ano e mes.')
         self.df1 = self.lerArquivo(header=None, usecols=[0], nrows=10)  # Leitura das primeiras linhas para extrair ano e mes.
-        self.extraiAnoMes()
+        self.ano_arq, self.mes_arq = self.extraiAnoMes()
         logger.info('Leitura do arquivo completo.')
         self.df2 = self.lerArquivo(header=3)     # Leitura do arquivo completo.
-
-        # Inicia tratamento do arquivo.        
-        logger.debug('Tratamento do arquivo iniciado.')
-        tratamento = TratamentoArquivo(self.df2, self.ano, self.mes)
-        tratamento.main()
+        logger.info(f'Fim da extração dos dados contidos no arquivo.')
+        return self.df2, self.ano_arq, self.mes_arq     # Retorna dataframe, ano e mes do arquivo.
