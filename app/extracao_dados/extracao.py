@@ -28,7 +28,7 @@ class ExtracaoDados:
         self.ano = int(_ano_mes.split('/')[1][:4])    # Extrai o "ano" do arquivo.        
         nome_mes = str(_ano_mes.split('/')[0].split(':')[1])     # Extrai o "mes" do arquivo. 
         self.mes = self.meses.get(f'{nome_mes}')  # Verifica o nome do Mês e retornar o número respectivo ao Mês.
-        logger.info(f'Extraido ano {self.ano} e mes {self.mes} do arquivo {self.arquivo}.')
+        logger.debug(f'Extraido ano {self.ano} e mes {self.mes} do arquivo {self.arquivo}.')
         return self.ano, self.mes
 
     def main(self):

@@ -71,7 +71,8 @@ class TratamentoArquivo:
             linha 1264 =    Dados referentes aos últimos seis meses, sujeitos a atualização.
         """
         logger.info('Removendo linhas desnecessárias.')
-        self.df = self.df[:-6]
+        self.df_remove_line = self.df.copy() 
+        self.df_remove_line = self.df_remove_line[:-6]
 
     def renomearColunas(self):
         """Função para renomear as colunas de acordo com o padrão definido no projeto, conforme o que se extrai da funcao 'criaNomeColuna'.
@@ -95,7 +96,7 @@ class TratamentoArquivo:
         #pass
 
         #print(_colunas_nomes)
-        self.df1 = self.df.copy()
+        self.df1 = self.df_remove_line.copy()
         self.df1.columns = self.colunas_novas
         #self.df1.rename(columns=colunas_nomes, inplace=True)
         #pass
@@ -119,22 +120,24 @@ class TratamentoArquivo:
 
         """
         logger.info("Tratando Nulos.")
-        colunas_df = list(self.df.columns)
+        colunas_df = list(self.df_remove_line.columns)
         #print(colunas_df)
         if len(colunas_df) == 109:
             for col in colunas_df:
                 if len(col) == 12 and col != 'CodMunicipio':
-                    self.df[col].replace(to_replace={'-': None}, inplace=True)
+                    self.df_remove_line[col].replace(to_replace={'-': None}, inplace=True)
                 else:
                     pass
-            return self.df
+            
         else:
             pass
+
+        return self.df_remove_line
 
     def salvarArquivo(self):
         """Função para salvar o arquivo final após o tratamento."""
         logger.info('Salvando o arquivo em ".csv".')
-        self.df2.to_csv(self.path_base+'SIH_SUS_'+str(self.ano_arq)+'_'+str(self.mes_arq)+'.csv', sep=';', index=False, encoding='latin1')
+        self.df_remove_line.to_csv(self.path_base+'SIH_SUS_'+str(self.ano_arq)+'_'+str(self.mes_arq)+'.csv', sep=';', index=False, encoding='latin1')
 
     def main(self):
         #self.criaNomeColuna()
@@ -145,8 +148,9 @@ class TratamentoArquivo:
         self.removerLinhas()
         #self.criaNomeColuna()
         #self.renomearColunas()
-        self.df2 = self.trataNulos()
+        #self.df2 = 
+        self.df_remove_line = self.trataNulos()
         self.salvarArquivo()
         #print(len(self.df.columns))
         logger.info(f'Fim do tratamento do arquivo.')
-        return self.df2
+        return self.df_remove_line

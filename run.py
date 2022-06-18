@@ -27,7 +27,7 @@ def criaNomeColuna(df):
     logger.info('Criando padronização no nome das colunas.')
     colunas_origem = list(df.columns)
     nomes_coluna = []
-    print(colunas_origem)
+    #print(colunas_origem)
     #print(len(colunas_origem))
     for col in colunas_origem:
         if len(col) > 15:
@@ -44,21 +44,22 @@ def criaNomeColuna(df):
     return df1
 
 if __name__ == '__main__':
-    #for i in range(0,50):
-    arquivo = listarDiretorio(path_raw)[0]
-    logger.debug('Loop pipeline para os arquivos iniciado!!!')
-    #for arquivo in arquivos:
-    logger.debug('Extração de dados do arquivo iniciado!!!')
-    extracao = ExtracaoDados(arquivo)
-    df1, ano, mes = extracao.main()
-    #print(df1.columns)
-    df2 = criaNomeColuna(df1)
-    print(df2)
-    #print(ano)
-    #print(mes)
-    print()
-    logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
-    tratamento = TratamentoArquivo(df2, ano, mes)
-    df3 = tratamento.main()
-    print(df3)
+    arquivo = listarDiretorio(path_raw)
+    for i in range(0,47):
+        #arquivo[i]
+        logger.debug('Loop pipeline para os arquivos iniciado!!!')
+        #for arquivo in arquivos:
+        logger.debug('Extração de dados do arquivo iniciado!!!')
+        extracao = ExtracaoDados(arquivo[i])
+        df1, ano, mes = extracao.main()
+        #print(df1.columns)
+        df2 = criaNomeColuna(df1)
+        #print(df2)
+        #print(ano)
+        #print(mes)
+        #print()
+        logger.debug(f'Tratamento do arquivo {arquivo[i]} iniciado!!!')
+        tratamento = TratamentoArquivo(df2, ano, mes)
+        df3 = tratamento.main()
+    #print(df3)
     logger.debug(f'Todos os arquivos foram extraidos!!!')
