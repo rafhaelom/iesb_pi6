@@ -1,30 +1,16 @@
 from msilib.schema import Error
-import os
-import sys
 import pandas as pd
 
 from app.logs import logger
-from app.tratamento_dados.tratamento import TratamentoArquivo
 
 class ExtracaoDados:
-    def __init__(self) -> None:
-        logger.debug('Classe "ExtracaoDados" iniciada.')
+    def __init__(self, arquivo) -> None:
+        logger.debug('Classe "ExtracaoDados" iniciada!!!')
         self.path_raw = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/app/dados/raw_data/'
-        self.path_base = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/dados/base_data/'
+        self.arquivo = arquivo
         # Dicionário com a chave (nome do mês) e valor (mês em número).
         self.meses = {'Jan': 1, 'Fev': 2, 'Mar': 3, 'Abr': 4, 'Mai': 5, 'Jun': 6, \
             'Jul': 7, 'Ago': 8, 'Set': 9, 'Out': 10, 'Nov': 11, 'Dez': 12}
-
-    def listarDiretorio(self) -> list:
-        """Função para listar os arquivos de um diretório."""
-        try:
-            logger.info(f'Listando os arquivos do diretório "{self.path_raw}"')
-            return os.listdir(self.path_raw)
-        except OSError as ose:
-            logger.error(f'Diretório Inválido ou Inexistente!!! {ose}')
-            logger.error(f'{self.path_raw} type: {type(self.path_raw)}')
-            print(f"Diretório Inválido ou Inexistente!!! {ose}")
-            sys.exit()
 
     def lerArquivo(self, sep=';', encoding='latin-1', header='infer', usecols=None, nrows=None):
         """Função para leitura de arquivos '.csv'."""
@@ -47,11 +33,12 @@ class ExtracaoDados:
 
     def main(self):
         """Função main que controla ordem de execução das funções."""
-        self.arquivo = self.listarDiretorio()[0]
+        #self.arquivo = self.listarDiretorio()
         logger.info('Leitura das primeiras linhas para extrair ano e mes.')
         self.df1 = self.lerArquivo(header=None, usecols=[0], nrows=10)  # Leitura das primeiras linhas para extrair ano e mes.
         self.ano_arq, self.mes_arq = self.extraiAnoMes()
         logger.info('Leitura do arquivo completo.')
         self.df2 = self.lerArquivo(header=3)     # Leitura do arquivo completo.
         logger.info(f'Fim da extração dos dados contidos no arquivo.')
+        
         return self.df2, self.ano_arq, self.mes_arq     # Retorna dataframe, ano e mes do arquivo.
