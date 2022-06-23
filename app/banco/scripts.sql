@@ -1,3 +1,7 @@
+----------------------------------------------------------------------------
+--- 		Criação da estrutura do database, schema e tabelas			 ---
+----------------------------------------------------------------------------
+
 --- Criação do banco de dados ---
 CREATE DATABASE saude_sus
     WITH
@@ -6,133 +10,220 @@ CREATE DATABASE saude_sus
     CONNECTION LIMIT = -1;
 
 --- Criação de schema ---
-CREATE SCHEMA "sih-sus"
+CREATE SCHEMA "sih_sus"
     AUTHORIZATION postgres;
 
---------------------------------------------------
--- Table: sih-sus.tb_sus_sih_qt
 
--- DROP TABLE IF EXISTS "sih-sus".tb_sus_sih_qt;
+-- Criação tabela quantida de internações por município e serviço/classificação --- 
+--- sih_sus.tb_sus_sih_qt ---
 
-CREATE TABLE IF NOT EXISTS "sih-sus".tb_sus_sih_qt
+CREATE TABLE IF NOT EXISTS "sih_sus".tb_sus_sih_qt
 (
-    index bigint,
-    "Ano" bigint,
-    "Mes" bigint,
-    "CodMunicipio" bigint,
-    "V_105001_105" double precision,
-    "V_105002_105" double precision,
-    "V_105003_105" double precision,
-    "V_105004_105" double precision,
-    "V_105005_105" double precision,
-    "V_105006_105" double precision,
-    "V_105007_105" double precision,
-    "V_105008_105" double precision,
-    "V_105009_105" double precision,
-    "V_107008_107" double precision,
-    "V_113001_113" double precision,
-    "V_113002_113" double precision,
-    "V_113003_113" double precision,
-    "V_113004_113" double precision,
-    "V_115001_115" double precision,
-    "V_115002_115" double precision,
-    "V_115003_115" double precision,
-    "V_115004_115" double precision,
-    "V_116002_116" double precision,
-    "V_116003_116" double precision,
-    "V_116004_116" double precision,
-    "V_116005_116" double precision,
-    "V_117001_117" double precision,
-    "V_117002_117" double precision,
-    "V_120001_120" double precision,
-    "V_120002_120" double precision,
-    "V_121000_121" double precision,
-    "V_121001_121" double precision,
-    "V_121002_121" double precision,
-    "V_121003_121" double precision,
-    "V_121004_121" double precision,
-    "V_121006_121" double precision,
-    "V_121007_121" double precision,
-    "V_121008_121" double precision,
-    "V_121009_121" double precision,
-    "V_121010_121" double precision,
-    "V_122000_122" double precision,
-    "V_122003_122" double precision,
-    "V_122004_122" double precision,
-    "V_122007_122" double precision,
-    "V_122008_122" double precision,
-    "V_125004_125" double precision,
-    "V_125006_125" double precision,
-    "V_125007_125" double precision,
-    "V_126001_126" double precision,
-    "V_126002_126" double precision,
-    "V_126003_126" double precision,
-    "V_126004_126" double precision,
-    "V_126005_126" double precision,
-    "V_126006_126" double precision,
-    "V_126007_126" double precision,
-    "V_126008_126" double precision,
-    "V_127001_127" double precision,
-    "V_128000_128" double precision,
-    "V_128001_128" double precision,
-    "V_128002_128" double precision,
-    "V_128003_128" double precision,
-    "V_128004_128" double precision,
-    "V_131000_131" double precision,
-    "V_131001_131" double precision,
-    "V_131002_131" double precision,
-    "V_131003_131" double precision,
-    "V_131007_131" double precision,
-    "V_132001_132" double precision,
-    "V_132002_132" double precision,
-    "V_132003_132" double precision,
-    "V_132004_132" double precision,
-    "V_132005_132" double precision,
-    "V_135001_135" double precision,
-    "V_135002_135" double precision,
-    "V_135003_135" double precision,
-    "V_135004_135" double precision,
-    "V_135011_135" double precision,
-    "V_140000_140" double precision,
-    "V_140001_140" double precision,
-    "V_140002_140" double precision,
-    "V_140003_140" double precision,
-    "V_140005_140" double precision,
-    "V_140006_140" double precision,
-    "V_140012_140" double precision,
-    "V_140019_140" double precision,
-    "V_142001_142" double precision,
-    "V_142002_142" double precision,
-    "V_142003_142" double precision,
-    "V_142004_142" double precision,
-    "V_145000_145" double precision,
-    "V_145001_145" double precision,
-    "V_145002_145" double precision,
-    "V_145003_145" double precision,
-    "V_145006_145" double precision,
-    "V_145008_145" double precision,
-    "V_145011_145" double precision,
-    "V_149015_149" double precision,
-    "V_151001_151" double precision,
-    "V_151003_151" double precision,
-    "V_154001_154" double precision,
-    "V_154002_154" double precision,
-    "V_155001_155" double precision,
-    "V_155002_155" double precision,
-    "V_155003_155" double precision,
-    "V_169002_169 double precision)
-" text COLLATE pg_catalog."default"
+    "ID_SIH_QT" serial not null primary key,
+    "ANO" SMALLINT not null,
+    "MES" SMALLINT not null,
+    "COD_MUNICIPIO" INTEGER not null,
+    "V_105001" INTEGER,
+    "V_105002" INTEGER,
+    "V_105003" INTEGER,
+    "V_105004" INTEGER,
+    "V_105005" INTEGER,
+    "V_105006" INTEGER,
+    "V_105007" INTEGER,
+    "V_105008" INTEGER,
+    "V_105009" INTEGER,
+    "V_107008" INTEGER,
+    "V_112001" INTEGER,
+    "V_112003" INTEGER,
+    "V_113001" INTEGER,
+    "V_113002" INTEGER,
+    "V_113003" INTEGER,
+    "V_113004" INTEGER,
+    "V_114006" INTEGER,
+    "V_114007" INTEGER,
+    "V_115001" INTEGER,
+    "V_115002" INTEGER,
+    "V_115003" INTEGER,
+    "V_115004" INTEGER,
+    "V_115005" INTEGER,
+    "V_115007" INTEGER,
+    "V_116002" INTEGER,
+    "V_116003" INTEGER,
+    "V_116004" INTEGER,
+    "V_116005" INTEGER,
+    "V_117001" INTEGER,
+    "V_117002" INTEGER,
+    "V_120001" INTEGER,
+    "V_120002" INTEGER,
+    "V_120003" INTEGER,
+    "V_121000" INTEGER,
+    "V_121001" INTEGER,
+    "V_121002" INTEGER,
+    "V_121003" INTEGER,
+    "V_121004" INTEGER,
+    "V_121006" INTEGER,
+    "V_121007" INTEGER,
+    "V_121008" INTEGER,
+    "V_121009" INTEGER,
+    "V_121010" INTEGER,
+    "V_121011" INTEGER,
+    "V_121012" INTEGER,
+    "V_122000" INTEGER,
+    "V_122001" INTEGER,
+    "V_122003" INTEGER,
+    "V_122004" INTEGER,
+    "V_122005" INTEGER,
+    "V_122007" INTEGER,
+    "V_122008" INTEGER,
+    "V_123002" INTEGER,
+    "V_123006" INTEGER,
+    "V_125001" INTEGER,
+    "V_125002" INTEGER,
+    "V_125004" INTEGER,
+    "V_125006" INTEGER,
+    "V_125007" INTEGER,
+    "V_126001" INTEGER,
+    "V_126002" INTEGER,
+    "V_126003" INTEGER,
+    "V_126004" INTEGER,
+    "V_126005" INTEGER,
+    "V_126006" INTEGER,
+    "V_126007" INTEGER,
+    "V_126008" INTEGER,
+    "V_127001" INTEGER,
+    "V_128000" INTEGER,
+    "V_128001" INTEGER,
+    "V_128002" INTEGER,
+    "V_128003" INTEGER,
+    "V_128004" INTEGER,
+    "V_131000" INTEGER,
+    "V_131001" INTEGER,
+    "V_131002" INTEGER,
+    "V_131003" INTEGER,
+    "V_131005" INTEGER,
+    "V_131006" INTEGER,
+    "V_131007" INTEGER,
+    "V_132001" INTEGER,
+    "V_132002" INTEGER,
+    "V_132003" INTEGER,
+    "V_132004" INTEGER,
+    "V_132005" INTEGER,
+    "V_133001" INTEGER,
+    "V_133002" INTEGER,
+    "V_133003" INTEGER,
+    "V_134003" INTEGER,
+    "V_134011" INTEGER,
+    "V_135001" INTEGER,
+    "V_135002" INTEGER,
+    "V_135003" INTEGER,
+    "V_135004" INTEGER,
+    "V_135005" INTEGER,
+    "V_135007" INTEGER,
+    "V_135008" INTEGER,
+    "V_135010" INTEGER,
+    "V_135011" INTEGER,
+    "V_135013" INTEGER,
+    "V_140000" INTEGER,
+    "V_140001" INTEGER,
+    "V_140002" INTEGER,
+    "V_140003" INTEGER,
+    "V_140004" INTEGER,
+    "V_140005" INTEGER,
+    "V_140006" INTEGER,
+    "V_140012" INTEGER,
+    "V_140019" INTEGER,
+    "V_142001" INTEGER,
+    "V_142002" INTEGER,
+    "V_142003" INTEGER,
+    "V_142004" INTEGER,
+    "V_145000" INTEGER,
+    "V_145001" INTEGER,
+    "V_145002" INTEGER,
+    "V_145003" INTEGER,
+    "V_145005" INTEGER,
+    "V_145006" INTEGER,
+    "V_145008" INTEGER,
+    "V_145009" INTEGER,
+    "V_145011" INTEGER,
+    "V_149001" INTEGER,
+    "V_149005" INTEGER,
+    "V_149006" INTEGER,
+    "V_149008" INTEGER,
+    "V_149014" INTEGER,
+    "V_149015" INTEGER,
+    "V_149016" INTEGER,
+    "V_151001" INTEGER,
+    "V_151003" INTEGER,
+    "V_153002" INTEGER,
+    "V_154001" INTEGER,
+    "V_154002" INTEGER,
+    "V_155001" INTEGER,
+    "V_155002" INTEGER,
+    "V_155003" INTEGER,
+    "V_169002" INTEGER
 )
 
-TABLESPACE pg_default;
+select * from sih_sus.tb_sus_sih_qt;
 
-ALTER TABLE IF EXISTS "sih-sus".tb_sus_sih_qt
-    OWNER to postgres;
--- Index: ix_sih-sus_tb_sus_sih_qt_index
+-- Criação tabela quantida de internações por município e serviço/classificação --- 
+--- sih_sus.tb_sus_sih_dicionario ---
 
--- DROP INDEX IF EXISTS "sih-sus"."ix_sih-sus_tb_sus_sih_qt_index";
+CREATE TABLE IF NOT EXISTS "sih_sus".tb_sus_sih_dicionario
+(
+    "ID_SIH_DIC" serial not null primary key,
+    "COD_SERVICO_CLASSIFICACAO" VARCHAR(10) not null, 
+	"DESC_SERVICO_CLASSIFICACAO" VARCHAR(120) not null,
+	"COD_SERVICO" VARCHAR(10) not null, 
+	"DESC_SERVICO" VARCHAR(100) not null, 
+	"COD_CLASSIFICACAO" VARCHAR(10) not null,
+	"DESC_CLASSIFICACAO" VARCHAR(100) not null, 
+	"QUANTIDADE_APROVADA" INTEGER not null
+)
 
-CREATE INDEX IF NOT EXISTS "ix_sih-sus_tb_sus_sih_qt_index"
-    ON "sih-sus".tb_sus_sih_qt USING btree
-    (index ASC NULLS LAST)
-    TABLESPACE pg_default;
+select * from sih_sus.tb_sus_sih_dicionario;
+
+-- Criação tabela quantida de internações por município e serviço/classificação --- 
+--- sih_sus.tb_dtb_municipios_ibge ---
+
+CREATE TABLE IF NOT EXISTS sih_sus.tb_dtb_municipios_ibge
+(
+	"COD_UF" smallint not null, 
+	"DESC_UF" VARCHAR(30) not null, 
+	"COD_REGIAO_GEOGRAFICA_INTERMEDIARIA" smallint not null,
+	"DESC_REGIAO_GEOGRAFICA_INTERMEDIARIA" VARCHAR(50) not null,
+	"COD_REGIAO_GEOGRAFICA_IMEDIATA" INTEGER not null, 
+	"DESC_REGIAO_GEOGRAFICA_IMEDIATA" VARCHAR(80) not null,
+	"COD_MESORREGIAO" VARCHAR(10) not null, 
+	"DESC_MESORREGIAO" VARCHAR(50) not null, 
+	"COD_MICRORREGIAO" VARCHAR(10) not null,
+	"DESC_MICRORREGIAO" VARCHAR(50) not null, 
+	"COD_ABREVIADO_MUNICIPIO" VARCHAR(10) not null,
+	"COD_COMPLETO_MUNICIPIO" INTEGER not null, 
+	"DESC_MUNICIPIO" VARCHAR(50) not null
+)
+
+select * from sih_sus.tb_dtb_municipios_ibge;
+
+----------------------------------------------------------------------------
+--- 			Análise Quantidade de Internações/Registros				 ---
+----------------------------------------------------------------------------
+
+--- Quantidade de registros totais. ---
+select count(*) from sih_sus.tb_sus_sih_qt;
+
+--- Quantidade de registros por ano. ---
+select 
+	a."ANO", 
+	count(*) 
+from sih_sus.tb_sus_sih_qt a
+	group by a."ANO"
+		order by a."ANO";
+
+--- Quantidade de registros por ano e mes. ----
+select 
+	a."ANO", 
+	a."MES", 
+	count(*) 
+from sih_sus.tb_sus_sih_qt a
+	group by a."ANO", a."MES"
+		order by a."ANO", a."MES";
