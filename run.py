@@ -24,7 +24,7 @@ def criaNomeColuna(df):
     """Função para criar padrão no nome das colunas de serviço/classificação.
     
     Ex: Nome coluna Original = '105001 105 SERVICO DE ATENCAO EM NEUROLOGIA / NEUROCIRURGIA / 001 NEUROCIRURGIA DO TRAUMA E ANOMALIAS DO DE'
-        Nome coluna Nova = 'V_105001_105'
+        Nome coluna Nova = 'V_105001'
     """
     logger.info('Criando padronização no nome das colunas.')
     colunas_origem = list(df.columns)
@@ -32,7 +32,7 @@ def criaNomeColuna(df):
     for col in colunas_origem:
         if len(col) > 15:
             #print(f"V_{col[:6]}_{col[7:10]}")
-            nomes_coluna.append(f"V_{col[:6]}_{col[7:10]}")
+            nomes_coluna.append(f"V_{col[:6]}")
         else:
             nomes_coluna.append(col)
 
@@ -42,24 +42,24 @@ def criaNomeColuna(df):
 
 if __name__ == '__main__':
     arquivos = listarDiretorio(path_raw)
-    arquivo = arquivos[-1]
+    #arquivo = arquivos[-1]
     logger.debug('Loop pipeline para os arquivos iniciado!!!')
-    #for arquivo in arquivos:
-    logger.debug('Extração de dados do arquivo iniciado!!!')
-    extracao = ExtracaoDados(arquivo)
-    df1, ano, mes = extracao.main()
-    df2 = criaNomeColuna(df1)
-    logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
-    tratamento = TratamentoArquivo(df2, ano, mes)
-    df3 = tratamento.main()
-    #print(arquivo)
+    for arquivo in arquivos:
+        logger.debug('Extração de dados do arquivo iniciado!!!')
+        extracao = ExtracaoDados(arquivo)
+        df1, ano, mes = extracao.main()
+        df2 = criaNomeColuna(df1)
+        logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
+        tratamento = TratamentoArquivo(df2, ano, mes)
+        df3 = tratamento.main()
+        print(arquivo)
     logger.debug(f'Todos os arquivos foram extraidos!!!')
     #print(arquivos)
-    print()
-    print(arquivo)
-    print(ano, mes)
-    print()
-    
+    #print()
+    #print(arquivo)
+    #print(ano, mes)
+    #print()
+    """
     # Connect to your postgres DB
     conn = psycopg2.connect(host="localhost", port="5432", dbname="saude_sus", user="postgres", password="")
     #conn = psycopg2.connect(host="", port="5432", dbname="sus_saude", user="", password="")
@@ -87,3 +87,4 @@ if __name__ == '__main__':
     # Fecha conexão com o banco.
     conn.close()
     #print(sql)
+    """

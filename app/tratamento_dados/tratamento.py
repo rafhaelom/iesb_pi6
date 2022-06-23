@@ -19,7 +19,7 @@ class TratamentoArquivo:
     def extraiCodMunicipio(self):
         """Função para extrair código do município."""
         logger.info('Extraindo CodMunicipio.')
-        self.df.insert(2, "CODMUNICIPIO", self.df.Município.apply(lambda x: x[:7]), allow_duplicates=False)
+        self.df.insert(2, "COD_MUNICIPIO", self.df.Município.apply(lambda x: x[:7]), allow_duplicates=False)
 
     def removerColunas(self):
         """Função para remover coluna não utilizada."""
@@ -48,13 +48,13 @@ class TratamentoArquivo:
 
         Ex: 
         Valores entrada. 
-        index   | V_105001_105
+        index   | V_105001
         linha 1 |     2
         linha 2 |     5
         linha 3 |     -
         
         Valores saída. 
-        index   | V_105001_105
+        index   | V_105001
         linha 1 |     2
         linha 2 |     5
         linha 3 |    None
@@ -64,7 +64,7 @@ class TratamentoArquivo:
         colunas_df = list(self.df_remove_line.columns)
         #print(colunas_df)
         for col in colunas_df:
-            if len(col) >= 12 and col != 'CODMUNICIPIO':
+            if len(col) == 8: #and col != 'CODMUNICIPIO':
                 self.df_remove_line[col].replace(to_replace={'-': None}, inplace=True)
             else:
                 pass
