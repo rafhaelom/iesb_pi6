@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+.ipynb_checkpoints/
 
 # Logs files.
 *.log
@@ -11,6 +12,10 @@ __pycache__/
 *.csv
 teste.py
 testes_uni,py
+*.txt
+*.xlsx
+*.xls
+*.sas7bdat
 
 # env.
 .env
