@@ -1,12 +1,12 @@
 from msilib.schema import Error
 import pandas as pd
 
-from app.logs import logger
+from logs import logger
 
 class ExtracaoDados:
     def __init__(self, arquivo) -> None:
         logger.debug('Classe "ExtracaoDados" iniciada!!!')
-        self.path_raw = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/app/dados/raw_data/'
+        self.path_raw = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/extracao_tratamento_inicial/dados/raw_data/'
         self.arquivo = arquivo
         # Dicionário com a chave (nome do mês) e valor (mês em número).
         self.meses = {'Jan': 1, 'Fev': 2, 'Mar': 3, 'Abr': 4, 'Mai': 5, 'Jun': 6, \

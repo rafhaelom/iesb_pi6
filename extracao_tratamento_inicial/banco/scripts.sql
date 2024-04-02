@@ -163,6 +163,7 @@ CREATE TABLE IF NOT EXISTS "sih_sus".tb_sus_sih_qt
     "V_169002" INTEGER
 )
 
+--- Homologação da estrutura da tabela criada ---
 select * from sih_sus.tb_sus_sih_qt;
 
 -- Criação tabela quantida de internações por município e serviço/classificação --- 
@@ -180,6 +181,7 @@ CREATE TABLE IF NOT EXISTS "sih_sus".tb_sus_sih_dicionario
 	"QUANTIDADE_APROVADA" INTEGER not null
 )
 
+--- Homologação da estrutura da tabela criada ---
 select * from sih_sus.tb_sus_sih_dicionario;
 
 -- Criação tabela quantida de internações por município e serviço/classificação --- 
@@ -202,6 +204,7 @@ CREATE TABLE IF NOT EXISTS sih_sus.tb_dtb_municipios_ibge
 	"DESC_MUNICIPIO" VARCHAR(50) not null
 )
 
+--- Homologação da estrutura da tabela criada ---
 select * from sih_sus.tb_dtb_municipios_ibge;
 
 ----------------------------------------------------------------------------
@@ -321,3 +324,195 @@ servico_154 = ["V_154001", "V_154002"]
 servico_155 = ["V_155001", "V_155002", "V_155003"]
 
 servico_169 = ["V_16900"]
+
+----------------------------------------------------
+--- criando coluna servico | total ----
+
+servico = '105';
+total = '105'n;
+output;
+
+servico = '107';
+total = '107'n;
+output;
+
+servico = '112';
+total = '112'n;
+output;
+
+servico = '113';
+total = '113'n;
+output;
+
+servico = '114';
+total = '114'n;
+output;
+
+servico = '115';
+total = '115'n;
+output;
+
+servico = '116';
+total = '116'n;
+output;
+
+servico = '117';
+total = '117'n;
+output;
+
+servico = '120';
+total = '120'n;
+output;
+
+servico = '121';
+total = '121'n;
+output;
+
+servico = '122';
+total = '122'n;
+output;
+
+servico = '123';
+total = '123'n;
+output;
+
+servico = '125';
+total = '125'n;
+output;
+
+servico = '126';
+total = '126'n;
+output;
+
+servico = '127';
+total = '127'n;
+output;
+
+servico = '128';
+total = '128'n;
+output;
+
+servico = '131';
+total = '131'n;
+output;
+
+servico = '132';
+total = '132'n;
+output;
+
+servico = '133';
+total = '133'n;
+output;
+
+servico = '134';
+total = '134'n;
+output;
+
+servico = '135';
+total = '135'n;
+output;
+
+servico = '140';
+total = '140'n;
+output;
+
+servico = '142';
+total = '142'n;
+output;
+
+servico = '145';
+total = '145'n;
+output;
+
+servico = '149';
+total = '149'n;
+output;
+
+servico = '151';
+total = '151'n;
+output;
+
+servico = '153';
+total = '153'n;
+output;
+
+servico = '154';
+total = '154'n;
+output;
+
+servico = '155';
+total = '155'n;
+output;
+
+servico = '169';
+total = '169'n;
+output;
+
+
+where in ('530010','520010','520017','520025','520030','520400','520549','520551','520580','520620','520800','521250','521305','521523','521560','521730','521760','521975','522185','522220','522230');
+
+# # Quantidade por Servicos Hospitalares.
+df['105'] = df[["V_105001", "V_105002", "V_105003", "V_105004", "V_105005", "V_105006", "V_105007", "V_105008", "V_105009"]].sum(axis=1)
+df['107'] = df[["V_107008"]].sum(axis=1)
+df['112'] = df[ "V_112001", "V_112003"]].sum(axis=1)
+df['113'] = df[["V_113001", "V_113002", "V_113003", "V_113004"]].sum(axis=1)
+df['114'] = df[["V_114006", "V_114007"]].sum(axis=1)
+df['115'] = df[["V_115001", "V_115002", "V_115003", "V_115004", "V_115005", "V_115007"]].sum(axis=1)
+df['116'] = df[["V_116002", "V_116003", "V_116004", "V_116005"]].sum(axis=1)
+df['117'] = df[["V_117001", "V_117002"]].sum(axis=1)
+df['120'] = df[["V_120001", "V_120002", "V_120003"]].sum(axis=1)
+df['121'] = df[["V_121000", "V_121001", "V_121002", "V_121003", "V_121004", "V_121006", "V_121007", \
+                            "V_121008", "V_121009", "V_121010", "V_121011", "V_121012"]].sum(axis=1)
+df['122'] = df[["V_122000", "V_122001", "V_122003", "V_122004", "V_122005", "V_122007", "V_122008"]].sum(axis=1)
+df['123'] = df[["V_123002", "V_123006"]].sum(axis=1)
+df['125'] = df[["V_125001", "V_125002", "V_125004", "V_125006", "V_125007"]].sum(axis=1)
+df['126'] = df[["V_126001", "V_126002", "V_126003", "V_126004", "V_126005", "V_126006", "V_126007", "V_126008"]].sum(axis=1)
+df['127'] = df[["V_127001"]].sum(axis=1)
+df['128'] = df[["V_128000", "V_128001", "V_128002", "V_128003", "V_128004"]].sum(axis=1)
+df['131'] = df[["V_131000", "V_131001", "V_131002", "V_131003", "V_131005", "V_131006", "V_131007"]].sum(axis=1)
+df['132'] = df[["V_132001", "V_132002", "V_132003", "V_132004", "V_132005"]].sum(axis=1)
+df['133'] = df[["V_133001", "V_133002", "V_133003"]].sum(axis=1)
+df['134'] = df[["V_134003", "V_134011"]].sum(axis=1)
+df['135'] = df[["V_135001", "V_135002", "V_135003", "V_135004", "V_135005", "V_135007", "V_135008", "V_135010", "V_135011", "V_135013"]].sum(axis=1)
+df['140'] = df[["V_140000", "V_140001", "V_140002", "V_140003", "V_140004", "V_140005", "V_140006", "V_140012", "V_140019"]].sum(axis=1)
+df['142'] = df[["V_142001", "V_142002", "V_142003", "V_142004"]].sum(axis=1)
+df['145'] = df[["V_145000", "V_145001", "V_145002", "V_145003", "V_145005", "V_145006", "V_145008", "V_145009", "V_145011"]].sum(axis=1)
+df['149'] = df[["V_149001", "V_149005", "V_149006", "V_149008", "V_149014", "V_149015", "V_149016"]].sum(axis=1)
+df['151'] = df[["V_151001", "V_151003"]].sum(axis=1)
+df['153'] = df[["V_153002"]].sum(axis=1)
+df['154'] = df[["V_154001", "V_154002"]].sum(axis=1)
+df['155'] = df[["V_155001", "V_155002", "V_155003"]].sum(axis=1)
+df['169'] = df[["V_169002"]].sum(axis=1)
+
+def modificaDtypeColunas(df):
+# Modifica dtype de colunas.
+df['105'] = df['105'].astype('Int64')
+df['107'] = df['107'].astype('Int64')
+df['112'] = df['112'].astype('Int64')
+df['113'] = df['113'].astype('Int64')
+df['114'] = df['114'].astype('Int64')
+df['115'] = df['115'].astype('Int64')
+df['116'] = df['116'].astype('Int64')
+df['117'] = df['117'].astype('Int64')
+df['120'] = df['120'].astype('Int64')
+df['121'] = df['121'].astype('Int64')
+df['122'] = df['122'].astype('Int64')
+df['123'] = df['123'].astype('Int64')
+df['125'] = df['125'].astype('Int64')
+df['126'] = df['126'].astype('Int64')
+df['127'] = df['127'].astype('Int64')
+df['128'] = df['128'].astype('Int64')
+df['131'] = df['131'].astype('Int64')
+df['132'] = df['132'].astype('Int64')
+df['133'] = df['133'].astype('Int64')
+df['134'] = df['134'].astype('Int64')
+df['135'] = df['135'].astype('Int64')
+df['140'] = df['140'].astype('Int64')
+df['142'] = df['142'].astype('Int64')
+df['145'] = df['145'].astype('Int64')
+df['149'] = df['149'].astype('Int64')
+df['151'] = df['151'].astype('Int64')
+df['153'] = df['153'].astype('Int64')
+df['154'] = df['154'].astype('Int64')
+df['155'] = df['155'].astype('Int64')
+df['169'] = df['169'].astype('Int64')

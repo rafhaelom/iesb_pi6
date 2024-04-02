@@ -1,6 +1,6 @@
 import os
 import sys
-from app.logs import logger
+from logs import logger
 
 class TratamentoArquivo:
     def __init__(self, df, ano, mes) -> None:
@@ -8,7 +8,7 @@ class TratamentoArquivo:
         self.df = df  # dataframe completo com os dados.
         self.ano_arq = ano  # ano do arquivo.
         self.mes_arq = mes  # mes do arquivo.
-        self.path_base = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/app/dados/base_data/'
+        self.path_base = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/extracao_tratamento_inicial/dados/base_data/'
 
     def criarColunas(self):
         """Função para criar colunas de ano e mes em uma posição específica do DataFrame."""

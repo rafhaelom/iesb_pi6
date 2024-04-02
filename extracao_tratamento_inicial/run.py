@@ -3,11 +3,11 @@ import sys
 
 import psycopg2
 
-from app.logs import logger
-from app.extracao_dados.extracao import ExtracaoDados
-from app.tratamento_dados.tratamento import TratamentoArquivo
+from logs import logger
+from extracao_dados.extracao import ExtracaoDados
+#from tratamento_dados.tratamento import TratamentoArquivo
 
-path_raw = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/app/dados/raw_data/'
+path_raw = 'C:/Users/Usuario/Documents/Projetos_git/iesb_pi6/extracao_tratamento_inicial/dados/raw_data/'
 
 def listarDiretorio(path_raw) -> list:
     """Função para listar os arquivos de um diretório."""
@@ -42,22 +42,23 @@ def criaNomeColuna(df):
 
 if __name__ == '__main__':
     arquivos = listarDiretorio(path_raw)
-    #arquivo = arquivos[-1]
+    arquivo = arquivos[-1]
+    print(arquivo)
     logger.debug('Loop pipeline para os arquivos iniciado!!!')
-    for arquivo in arquivos:
-        logger.debug('Extração de dados do arquivo iniciado!!!')
-        extracao = ExtracaoDados(arquivo)
-        df1, ano, mes = extracao.main()
-        df2 = criaNomeColuna(df1)
-        logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
-        tratamento = TratamentoArquivo(df2, ano, mes)
-        df3 = tratamento.main()
-        print(arquivo)
+    # #for arquivo in arquivos:
+    logger.debug('Extração de dados do arquivo iniciado!!!')
+    extracao = ExtracaoDados(arquivo)
+    df1, ano, mes = extracao.main()
+    df2 = criaNomeColuna(df1)
+    # logger.debug(f'Tratamento do arquivo {arquivo} iniciado!!!')
+    # tratamento = TratamentoArquivo(df2, ano, mes)
+    # df3 = tratamento.main()
+    # print(arquivo)
     logger.debug(f'Todos os arquivos foram extraidos!!!')
     #print(arquivos)
     #print()
     #print(arquivo)
-    #print(ano, mes)
+    print(ano, mes)
     #print()
     """
     # Connect to your postgres DB

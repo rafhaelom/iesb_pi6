@@ -12,7 +12,7 @@ filemode = 'Forma em que o arquivo será gravado.'
 level = 'Level(nivel) em que o log atuará.'
 format = 'Formatação da mensagem do log.'
 '''
-logging.basicConfig(filename='app/logs/testes1.log',
+logging.basicConfig(filename='extracao_tratamento_inicial/logs/testes1.log',
                     # w -> sobrescreve o arquivo a cada log
                     # a -> não sobrescreve o arquivo
                     filemode='w',
